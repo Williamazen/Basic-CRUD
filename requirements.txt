@@ -8,3 +8,4 @@ SQLAlchemy==1.4.44
 validators==0.20.0
 WTForms==3.0.1
 WTForms-Components==0.10.5
+gunicorn==20.1.0
