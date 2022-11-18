@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-{% include "/common/head.html" %}
-{% include "/common/header.html" %}
+{% extends "base.html" %}
 
-<body>
+{% block content %}
 
+<div class="container ">
+    {%if not data%}
+    <p class="fs-1 text-center">No categories found</p>
+    {%endif%}
+    {%for category in data%}
+    <div class="py-5" style="min-height:500px ;">
+        <p class="fs-1">{{category[0][0]}}</p>
 
-    <div class="container ">
-        {%if not data%}
-        <p class="fs-1 text-center">No categories found</p>
-        {%endif%}
-        {%for category in data%}
-        <div class="py-5" style="min-height:500px ;">
-            <p class="fs-1">{{category[0][0]}}</p>
-
-            {%if category[0][1]%}
-            {%for item in category[0][1]%}
+        {%if category[0][1]%}
+        {%for item in category[0][1]%}
 
 
-            {% include "/common/item.html" %}
-
-            {%endfor%}
-
-            {%else%}
-            <p class="fs-5"> No products</p>
-            {%endif%}
-
-        </div>
+        {% include "/common/item.html" %}
 
         {%endfor%}
+
+        {%else%}
+        <p class="fs-5"> No products</p>
+        {%endif%}
+
     </div>
 
+    {%endfor%}
+</div>
 
-
-</body>
-{% include "/common/footer.html" %}
-
-</html>
+{% endblock %}

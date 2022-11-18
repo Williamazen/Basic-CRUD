@@ -1,60 +1,55 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
-{% include "/common/head.html" %}
-{% include "/common/header.html" %}
+{% block content %}
 
-<body>
-
-
-    <div class="container pb-5">
-        <p class="fs-1 pb-5">Add Items</p>
-        {%if error%}
-        {% include "/common/error.html" %}
-        {%endif%}
-        <div class="card py-3">
-            <form action="/edit" method="post">
-                {{ form.csrf_token }}
+<div class="container pb-5">
+    <p class="fs-1 pb-5">Add Items</p>
+    {%if error%}
+    {% include "/common/error.html" %}
+    {%endif%}
+    <div class="card py-3">
+        <form action="/edit" method="post">
+            {{ form.csrf_token }}
 
 
-                <div class="row g-2">
+            <div class="row g-2">
 
-                    <div class="col-8 px-5">
-                        <div class="mt-3 form-floating mb-4" style="color: black;">
-                            {{ form.name(class_='form-control text-white bg-dark', placeholder='Name') }}
-                            <label for="name" class="text-light">Name</label>
-                        </div>
-                    </div>
-
-                    <div class="col-3 ">
-                        <div class="mt-3 form-floating mb-4" style="color: black;">
-                            {{ form.amount(class_='form-control text-white bg-dark', placeholder='Amount') }}
-                            <label for="amount" class="text-light">Amount</label>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-8 px-5">
-                        <div class="mt-3 form-floating mb-4" style="color: black;">
-                            {{ form.category(class_='form-select text-white bg-dark', placeholder='Category') }}
-
-                            <label for="category" class="text-light">Category</label>
-                        </div>
-                    </div>
-                    <div class="col-3 ">
-                        <div class="mt-3 submit-form d-flex flex-row-reverse mb-4">
-                            <button type="submit" class="btn btn-block btn-primary py-3 w-100">Add</button>
-                        </div>
+                <div class="col-8 px-5">
+                    <div class="mt-3 form-floating mb-4" style="color: black;">
+                        {{ form.name(class_='form-control text-white bg-dark', placeholder='Name') }}
+                        <label for="name" class="text-light">Name</label>
                     </div>
                 </div>
-            </form>
-        </div>
 
+                <div class="col-3 ">
+                    <div class="mt-3 form-floating mb-4" style="color: black;">
+                        {{ form.amount(class_='form-control text-white bg-dark', placeholder='Amount') }}
+                        <label for="amount" class="text-light">Amount</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row g-2">
+                <div class="col-8 px-5">
+                    <div class="mt-3 form-floating mb-4" style="color: black;">
+                        {{ form.category(class_='form-select text-white bg-dark', placeholder='Category') }}
+
+                        <label for="category" class="text-light">Category</label>
+                    </div>
+                </div>
+                <div class="col-3 ">
+                    <div class="mt-3 submit-form d-flex flex-row-reverse mb-4">
+                        <button type="submit" class="btn btn-block btn-primary py-3 w-100">Add</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <div class="container pt-3"">
+</div>
+
+<div class="container pt-3"">
         <hr class="">
 
         
@@ -62,60 +57,45 @@
 
 
 
-        {%if not data%}
-        <p class="fs-1 text-center">No items found</p>
-        {%else%}
-        <form class="mt-3 submit-form d-flex flex-row-reverse mb-4" action="/download" method="get">
-            <button type="submit" class="btn btn-block btn-primary py-3" style="min-width: 200px ;">Export</button>
-        </form>
-        {%endif%}
+    {%if not data%}
+    <p class="fs-1 text-center">No items found</p>
+    {%else%}
+    <form class="mt-3 submit-form d-flex flex-row-reverse mb-4" action="/download" method="get">
+        <button type="submit" class="btn btn-block btn-primary py-3" style="min-width: 200px ;">Export</button>
+    </form>
+    {%endif%}
 
-        {%for item in data%}
+    {%for item in data%}
 
 
 
-        <div class="card mt-5" style="min-height: 100px;">
+    <div class="card mt-5" style="min-height: 100px;">
 
-            <div class="row g-2 ">
+        <div class="row g-2 ">
 
-                <div class="col-6 pt-3">
-                    <p class="ms-5 fs-4" name="name">{{item.name.title()}} - {{item.category.title()}}</p>
-                </div>
-
-                <div class="col-2 pt-3 ">
-                    <p class="fs-4">x{{item.amount}}</p>
-                </div>
-
-                <div class="col-3">
-                    <form action="/delete/item" method="post">
-                        <input type="hidden" value="{{item.name}}" name="name">
-                        <div class="mt-3 submit-form mb-4">
-                            <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
-                        </div>
-                    </form>
-                </div>
-
+            <div class="col-6 pt-3">
+                <p class="ms-5 fs-4" name="name">{{item.name.title()}} - {{item.category.title()}}</p>
             </div>
 
+            <div class="col-2 pt-3 ">
+                <p class="fs-4">x{{item.amount}}</p>
+            </div>
 
-
-
-
+            <div class="col-3">
+                <form action="/delete/item" method="post">
+                    <input type="hidden" value="{{item.name}}" name="name">
+                    <div class="mt-3 submit-form mb-4">
+                        <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
+                    </div>
+                </form>
+            </div>
 
         </div>
-        {%endfor%}
-
-
-
-
-
-
-
 
     </div>
+    {%endfor%}
 
-    <script src="" async defer></script>
-</body>
-{% include "/common/footer.html" %}
 
-</html>
+</div>
+
+{% endblock %}

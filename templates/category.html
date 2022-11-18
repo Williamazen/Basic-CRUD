@@ -1,85 +1,69 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
-{% include "/common/head.html" %}
-{% include "/common/header.html" %}
+{% block content %}
 
-<body>
-
-
-
-    <div class="container pb-5">
-        <p class="fs-1 pb-5">Add Categories</p>
-        {%if error%}
-        {% include "/common/error.html" %}
-        {%endif%}
-        <div class="card py-3">
-            <form action="/category" method="post">
-                {{ form.csrf_token }}
+<div class="container pb-5">
+    <p class="fs-1 pb-5">Add Categories</p>
+    {%if error%}
+    {% include "/common/error.html" %}
+    {%endif%}
+    <div class="card py-3">
+        <form action="/category" method="post">
+            {{ form.csrf_token }}
 
 
-                <div class="row g-2">
+            <div class="row g-2">
 
-                    <div class="col-8 px-5">
-                        <div class="mt-3 form-floating mb-4" style="color: black;">
-                            {{ form.name(class_='form-control text-white bg-dark', placeholder='Name') }}
-                            <label for="name" class="text-light">Name</label>
-                        </div>
+                <div class="col-8 px-5">
+                    <div class="mt-3 form-floating mb-4" style="color: black;">
+                        {{ form.name(class_='form-control text-white bg-dark', placeholder='Name') }}
+                        <label for="name" class="text-light">Name</label>
                     </div>
-                    <div class="col-3 ">
-                        <div class="mt-3 submit-form d-flex flex-row-reverse mb-4">
-                            <button type="submit" class="btn btn-block btn-primary py-3 w-100">Add</button>
-                        </div>
+                </div>
+                <div class="col-3 ">
+                    <div class="mt-3 submit-form d-flex flex-row-reverse mb-4">
+                        <button type="submit" class="btn btn-block btn-primary py-3 w-100">Add</button>
                     </div>
-
-
                 </div>
 
-            </form>
-        </div>
 
+            </div>
+
+        </form>
     </div>
-    <div class="container">
-        <hr>
-    </div>
-    <div class="container pt-5">
-        {%if not data%}
-        <p class="fs-1 text-center">No categories found</p>
-        {%endif%}
-        {%for category in data%}
+
+</div>
+<div class="container">
+    <hr>
+</div>
+<div class="container pt-5">
+    {%if not data%}
+    <p class="fs-1 text-center">No categories found</p>
+    {%endif%}
+    {%for category in data%}
 
 
 
-        <div class="card mt-5" style="min-height: 100px;">
+    <div class="card mt-5" style="min-height: 100px;">
 
-            <div class="row g-2 ">
+        <div class="row g-2 ">
 
-                <div class="col-8 pt-3">
-                    <p class="ms-5 fs-4" name="name">{{category.name.title()}}</p>
-                </div>
-
-
-
-                <div class="col-3">
-                    <form action="/delete/category" method="post">
-                        <input type="hidden" value="{{category.name}}" name="name">
-                        <div class="mt-3 submit-form mb-4">
-                            <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
-                        </div>
-                    </form>
-                </div>
-
+            <div class="col-8 pt-3">
+                <p class="ms-5 fs-4" name="name">{{category.name.title()}}</p>
             </div>
 
 
 
-
-
+            <div class="col-3">
+                <form action="/delete/category" method="post">
+                    <input type="hidden" value="{{category.name}}" name="name">
+                    <div class="mt-3 submit-form mb-4">
+                        <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
+                    </div>
+                </form>
+            </div>
 
         </div>
-        {%endfor%}
-
-
 
 
 
@@ -87,9 +71,14 @@
 
 
     </div>
+    {%endfor%}
 
-    <script src="" async defer></script>
-</body>
-{% include "/common/footer.html" %}
 
-</html>
+
+
+
+
+
+
+</div>
+{% endblock %}
