@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, abort, redirect
+from flask import Flask, render_template, request, abort, redirect, send_from_directory
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators, SelectField, IntegerField
 import bleach
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import os
+import csv
+import datetime
+import glob
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///items.db'
@@ -152,5 +155,37 @@ def update(id):
     return redirect('/')
 
 
+@app.route('/download', methods=['GET'])
+def download():
+
+    if request.method == 'GET':
+
+        files = glob.glob('exports/*')
+        for f in files:
+            os.remove(f)
+
+        today = datetime.date.today().strftime('%d_%m_%y')
+        print(today)
+
+        with app.app_context():
+            data = Item.query.all()
+
+        with open(f'exports/{today}.csv', 'w', encoding='UTF8', newline='') as f:
+
+            field_names = ['ID', 'Name', 'Amount', 'Category']
+            rows = [{'ID': i.id, 'Name': i.name, 'Amount': i.amount, 'Category': i.category}
+                    for i in data]
+
+            writer = csv.DictWriter(f, fieldnames=field_names)
+            writer.writeheader()
+            writer.writerows(rows)
+
+        r = send_from_directory(directory='exports', path=f'{today}.csv')
+
+        return r
+    else:
+        return redirect('/edit')
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
