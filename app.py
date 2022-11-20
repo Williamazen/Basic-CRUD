@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, abort, redirect, send_from_directory
+from flask import Flask, render_template, request, abort, redirect, send_file
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators, SelectField, IntegerField
 import bleach
@@ -7,6 +7,7 @@ from sqlalchemy.exc import IntegrityError
 import os
 import csv
 import datetime
+import io
 import glob
 
 app = Flask(__name__)
@@ -170,17 +171,11 @@ def download():
         with app.app_context():
             data = Item.query.all()
 
-        with open(f'exports/{today}.csv', 'w', encoding='UTF8', newline='') as f:
+        rows = [f'{i.id},{i.name},{i.amount},{i.category}' for i in data]
+        rows.insert(0, 'ID,  Name ,  Amount , Category')
+        r = bytes('\n'.join(rows), 'utf-8')
 
-            field_names = ['ID', 'Name', 'Amount', 'Category']
-            rows = [{'ID': i.id, 'Name': i.name, 'Amount': i.amount, 'Category': i.category}
-                    for i in data]
-
-            writer = csv.DictWriter(f, fieldnames=field_names)
-            writer.writeheader()
-            writer.writerows(rows)
-
-        r = send_from_directory(directory='exports', path=f'{today}.csv')
+        r = send_file(io.BytesIO(r), download_name=f'{today}.csv')
 
         return r
     else:
