@@ -56,7 +56,7 @@ def edit():
 
     class MyForm(FlaskForm):
         name = StringField('name', validators=[
-            validators.DataRequired(), validators.length(min=4, max=25)])
+            validators.DataRequired(), validators.length(min=3, max=25)])
         amount = IntegerField('amount', validators=[
             validators.DataRequired()])
         category = SelectField('category', validators=[

@@ -7,7 +7,7 @@
     {%if error%}
     {% include "/common/error.html" %}
     {%endif%}
-    <div class="card py-3">
+    <div class="card py-3 shadow">
         <form action="/category" method="post">
             {{ form.csrf_token }}
 
@@ -44,7 +44,7 @@
 
 
 
-    <div class="card mt-5" style="min-height: 100px;">
+    <div class="card mt-5 shadow" style="min-height: 100px;">
 
         <div class="row g-2 ">
 
