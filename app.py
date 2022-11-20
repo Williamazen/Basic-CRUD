@@ -5,7 +5,6 @@ import bleach
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 import os
-import csv
 import datetime
 import io
 import glob
