@@ -1,34 +1,32 @@
-<div class="row">
-    <div class="card px-4 mt-5 pt-4 shadow" style="min-height: 100px;">
+<div class="card mt-5 pt-4 shadow" style="min-height: 100px;">
 
 
 
 
-        <form class="row" action="/update/{{item.id}}" method="post">
-            <div class="col-6">
-                <p class=" fs-4 w-100" name="name">{{item['name']}}</p>
+    <form class="row mx-3" action="/update/{{item.id}}" method="post">
+        <div class="col-6">
+            <p class=" fs-4 w-100" name="name">{{item['name']}}</p>
+        </div>
+
+        <div class="d-flex justify-content-end col-6">
+            <input type="hidden" value="{{item.amount}}" name="amount">
+
+            <div class="ps-3">
+
+                <input type="submit" value="-" name="bttn" class="btn btn-block btn-danger "></input>
+
+            </div>
+            <div class="ps-3">
+
+                <p class="fs-3 text-center" style="min-width:35px ;">{{item['amount']}}</p>
             </div>
 
-            <div class="d-flex justify-content-end col-6">
-                <input type="hidden" value="{{item.amount}}" name="amount">
+            <div class="ps-3">
+                <input type="submit" value="+" name="bttn" class="btn btn-block btn-primary "></input>
 
-                <div class="ps-3">
-
-                    <input type="submit" value="-" name="bttn" class="btn btn-block btn-danger "></input>
-
-                </div>
-                <div class="ps-3">
-
-                    <p class="fs-3 text-center" style="min-width:35px ;">{{item['amount']}}</p>
-                </div>
-
-                <div class="ps-3">
-                    <input type="submit" value="+" name="bttn" class="btn btn-block btn-primary "></input>
-
-                </div>
             </div>
+        </div>
 
-        </form>
+    </form>
 
-    </div>
 </div>
