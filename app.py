@@ -61,8 +61,8 @@ class Log(db.Model):  # type: ignore
     item_id = db.Column(db.Integer(), unique=False, nullable=False)
 
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 
 @app.route('/')
