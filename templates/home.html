@@ -1,0 +1,38 @@
+{% extends "home-base.html" %}
+
+{% block content %}
+
+<div class="container  ">
+    <div class="card">
+        <p class="fs-2 text-center card-header w-100">Welcome</p>
+        <div class="row p-3">
+            <p class="text-center fs-4 w-100">
+
+            </p>
+        </div>
+        <div class="row p-3">
+            <div class="col-4">
+                <a href="{{url_for('login')}}"><button class="btn btn-block btn-dark py-3 w-100 fs-5">Login</button>
+                </a>
+
+            </div>
+
+            <div class="col-4">
+                <a href="{{url_for('register')}}"><button
+                        class="btn btn-block btn-primary py-3 w-100 fs-5">Register</button>
+                </a>
+            </div>
+
+            <div class="col-4">
+                <a href="{{url_for('guest_login')}}"><button class="btn btn-block btn-secondary py-3 w-100 fs-5">Enter
+                        as
+                        Guest</button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

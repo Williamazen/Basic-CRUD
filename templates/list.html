@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container ">
+    {%if not data%}
+    <p class="fs-1 text-center">No categories found</p>
+    <p class="fs-5 text-center">You can add categories <a href="{{url_for('category')}}" class="link-light">here</a>.
+        {%endif%}
+        {%for category in data%}
+    <div class="py-5" style="min-height:500px ;">
+        <p class="fs-1">{{category[0].name}}</p>
+
+
+        {%for item in category[1]%}
+
+
+        {% include "/common/item.html" %}
+
+        {%endfor%}
+
+        {%if not category[1][0]%}
+
+        <p class="fs-5 ms-3">No items found, you can add items <a href="{{url_for('edit')}}"
+                class="link-light">here</a>.
+            {%endif%}
+
+    </div>
+
+    {%endfor%}
+</div>
+
+{% endblock %}

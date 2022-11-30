@@ -1,0 +1,31 @@
+{% extends "home-base.html" %}
+
+{% block content %}
+<div class="container">
+
+    {% include "/common/error.html" %}
+    <div class="card shadow">
+        <p class="fs-2 text-center card-header">Login</p>
+
+        <form class="" method="POST" action="/login">
+            {{ form.csrf_token }}
+
+            <div class="form-floating m-4 w-75 mx-auto ">
+                {{ form.email(class_='form-control text-white bg-dark', placeholder='Email', id='email') }}
+                <label for="email" class="text-light">Email</label>
+            </div>
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.password(class_='form-control text-white bg-dark', placeholder='Password', id='password') }}
+                <label for="password" class="text-light">Password</label>
+            </div>
+
+            <div class="row mt-5">
+                <div class="d-flex align-content-center ">
+                    <button type="submit" class="btn btn-primary w-50 fs-5 py-3 mx-auto m-3">Login</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

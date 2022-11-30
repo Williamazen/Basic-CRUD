@@ -1,0 +1,58 @@
+{% extends "home-base.html" %}
+
+{% block content %}
+<div class="container">
+
+    {% include "/common/error.html" %}
+
+
+
+    <div class="card shadow">
+
+
+        <p class="fs-1 text-center card-header">Register</p>
+
+
+
+        <form class="" method="POST" action="/register">
+            {{ form.csrf_token }}
+
+            <div class="form-floating m-4 w-75 mx-auto ">
+                {{ form.login(class_='form-control text-white bg-dark', placeholder='Login', id='login') }}
+                <label for="login" class="text-light">Username</label>
+            </div>
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.email(class_='form-control text-white bg-dark', placeholder='E-mail', id='email') }}
+                <label for="email" class="text-light">E-mail</label>
+            </div>
+
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.password(class_='form-control text-white bg-dark', placeholder='Password', id='password',
+                pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$') }}
+                <label for="password" class="text-light">Password</label>
+            </div>
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.repeat_password(class_='form-control text-white bg-dark', placeholder='Repeat Password',
+                id='repeat_password') }}
+                <label for="repeat_password" class="text-light">Repeat Password</label>
+            </div>
+            <ul class="w-50 mx-auto card py-3 m-4">
+                <div class="mx-auto fs-6 ">
+                    <p class="">Passwords must contain:</p>
+
+                    <li>At least one upper case and one lower case letter;</li>
+                    <li>At least one number;</li>
+                    <li>At least one special character (#?!@$%^&*-);</li>
+                    <li>A minimum eight characters.</li>
+                </div>
+            </ul>
+            <div class="row mt-5">
+                <div class="d-flex align-content-center ">
+                    <button type="submit" class="btn btn-primary w-50 fs-5 py-3 mx-auto m-3">Register</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -4,9 +4,9 @@
 
 <div class="container pb-5">
     <p class="fs-1 pb-5">Add Items</p>
-    {%if error%}
+
     {% include "/common/error.html" %}
-    {%endif%}
+
     <div class="card py-3 shadow">
         <form action="/edit" method="post">
             {{ form.csrf_token }}
@@ -65,33 +65,41 @@
     </form>
     {%endif%}
 
-    {%for item in data%}
+    {%for category in data%}
+    <div class="py-5" style="min-height:500px ;">
+        <p class="fs-1">{{category[0].name}}</p>
+
+        {%for item in category[1] %}
 
 
+        <div class="card mt-5 shadow" style="min-height: 100px;">
 
-    <div class="card mt-5 shadow" style="min-height: 100px;">
+            <div class="row g-2 align-items-center my-auto">
 
-        <div class="row g-2 ">
+                <div class="col-6">
+                    <p class="ms-5 fs-3" name="name">{{item.name}}</p>
+                </div>
 
-            <div class="col-6 pt-3">
-                <p class="ms-5 fs-4" name="name">{{item.name.title()}} - {{item.category.title()}}</p>
-            </div>
+                <div class="col-2">
+                    <p class="fs-4">x{{item.amount}}</p>
+                </div>
 
-            <div class="col-2 pt-3 ">
-                <p class="fs-4">x{{item.amount}}</p>
-            </div>
+                <div class="col-3">
+                    <form action="/delete/edit" method="post">
+                        <input type="hidden" value="{{item.id}}" name="id">
+                        <div class="mt-3 submit-form mb-4">
+                            <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
+                        </div>
+                    </form>
+                </div>
 
-            <div class="col-3">
-                <form action="/delete/item" method="post">
-                    <input type="hidden" value="{{item.name}}" name="name">
-                    <div class="mt-3 submit-form mb-4">
-                        <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
-                    </div>
-                </form>
             </div>
 
         </div>
-
+        {%endfor%}
+        {%if not category[1][0]%}
+        <p class="fs-5 ms-3">No items found.</p>
+        {%endif%}
     </div>
     {%endfor%}
 

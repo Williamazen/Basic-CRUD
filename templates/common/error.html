@@ -1,5 +1,9 @@
-<div class="card w-100 my-5 px-5 bg-danger shadow">
-
-    <p class="fs-2">Error !</p>
-    <p class="fs-4">{{error}}</p>
-</div>
+<ul class="list-group my-3">
+    {% for field, errors in form.errors.items() %}
+    {%if field != 'csrf_token'%}
+    <li class="list-group-item text-white bg-danger shadow">
+        {{ ', '.join(errors) }}
+    </li>
+    {%endif%}
+    {% endfor %}
+</ul>
