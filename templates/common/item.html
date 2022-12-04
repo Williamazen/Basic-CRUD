@@ -1,28 +1,26 @@
-<div class="card mt-5 pt-4 shadow" style="min-height: 100px;">
+<div class="card shadow">
+    <div class="card-header row mx-1">
+        <div class="col">
+            <p class="text-truncate fs-4">{{item.name.title()}}</p>
+        </div>
+        <div class=" col-4 text-center">
+            <p class="w-100 fs-4 text-truncate ">x{{item.amount}}</p>
+        </div>
+    </div>
+    <form class="card-body py-4" action=" /update/{{item.id}}" method="post">
+        <div class="row text-center ">
 
 
 
-
-
-    <form action="/update/{{item.id}}" method="post">
-        <div class="row text-center mx-3">
-
-            <div class="d-flex col-5">
-                <p class=" fs-4 w-100"">{{item['name']}}</p>
+            <div class="col-4">
+                <button type=" submit" value="-" name="bttn" class="btn btn-block btn-danger w-75  fw-bold">-</button>
             </div>
-
-            <div class=" d-flex col-3">
-                <p class=" fs-4 w-100" ">{{item['amount']}}</p>
+            <div class="col-4 ">
+                <input type="number" class="text-white bg-dark form-control text-center " name="amount" value="1"
+                    min="1" max="999">
             </div>
-
-            <div class=" btn-block col-1">
-                    <button type="submit" value="+" name="bttn" class="btn btn-block btn-primary w-100 ">+</button>
-            </div>
-            <div class="col-2 ">
-                <input type="number" class="text-white bg-dark form-control text-center " value="0" name="amount">
-            </div>
-            <div class="btn-block col-1">
-                <button type="submit" value="-" name="bttn" class="btn btn-block btn-danger w-100 ">-</button>
+            <div class=" btn-block col-4">
+                <button type="submit" value="+" name="bttn" class="btn btn-block btn-primary w-75  fw-bold ">+</button>
             </div>
         </div>
     </form>

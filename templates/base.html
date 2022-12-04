@@ -40,6 +40,7 @@
                     <a class="nav-item nav-link mx-2 {% if request.path == '/'%} active {% endif %}"
                         href="{{url_for('list')}}"> List</a>
                     </li>
+                    {%if current_user.admin%}
                     <li>
                         <a class="nav-item nav-link mx-2 {% if request.path == '/edit'%} active {% endif %}"
                             href="{{url_for('edit')}}">Edit Items</a>
@@ -54,6 +55,11 @@
                         <a class="nav-item nav-link mx-2 {% if request.path == '/logs'%} active {% endif %}"
                             href="{{url_for('logs')}}">Logs</a>
                     </li>
+                    <li>
+                        <a class="nav-item nav-link mx-2 {% if request.path == '/users'%} active {% endif %}"
+                            href="{{url_for('users')}}">Users</a>
+                    </li>
+                    {%endif%}
 
                     {% include 'common/dropdown.html' %}
 
@@ -70,12 +76,22 @@
 
     </nav>
 
-    <div class="">
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes list-group my-3">
+            {% for category,message in messages %}
+            <li class="list-group-item text-white bg-danger shadow">{{category}}: {{ message }}</li>
+            {% endfor %}
+        </ul>
 
-        {% block content %}
-        {% endblock %}
-
+        {% endif %}
+        {% endwith %}
     </div>
+    {% block content %}
+    {% endblock %}
+
+
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"

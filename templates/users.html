@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    {% include "/common/error.html" %}
+    <p class="fs-1">My Users:</p>
+    {%if not users%}
+    <p class="fs-3 text-center">No users registered</p>
+
+    {%endif%}
+
+    {%for u in users%}
+    <div class="card my-5 shadow" style="min-height: 100px;">
+        <div class="row text-center my-auto px-3">
+            <div class="d-flex my-auto col-4">
+                <p class="fs-3  my-auto" name="name">{{u.login.title()}}</p>
+            </div>
+
+            <div class="d-flex  col-4">
+                <button type="button" class="btn btn-primary py-3 w-100" data-bs-toggle="modal"
+                    data-bs-target="#categoriesModal">
+                    Categories
+                </button>
+            </div>
+
+            <div class="d-flex col-4">
+                <button type="button" class="btn  btn-danger py-3 w-100" data-bs-toggle="modal"
+                    data-bs-target="#delete_modal">Delete</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!--Categories modal-->
+    <div class="modal fade" id="categoriesModal" tabindex="-1" aria-labelledby="categoriesModalLabel"
+        data-bs-backdrop="static" aria-hidden=" true">
+        <div class="modal-dialog modal-xl ">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="categoriesModalLabel">Categories</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form method="POST" action="/users/update">
+                    <input type="hidden" value="{{u.id}}" name="id">
+                    <div class="modal-body">
+
+                        {%if data%}
+
+                        {%for i in data%}
+
+
+                        <input type="checkbox" name="check" class="btn-check" id="btncheck{{i.id}}" autocomplete="off"
+                            value="{{i.id}}">
+
+                        <label class="btn btn-outline-primary me-1 mb-1 shadow-none text-truncate" style="width:8rem;"
+                            for="btncheck{{i.id}}">
+                            {{i.name.split(' ')[0]}}</label>
+                        {%endfor%}
+
+
+
+                        {%else%}
+                        <p class="fs-1 text-center">No categories found</p>
+                        <p class="fs-5 text-center">You can add categories <a href="{{url_for('category')}}"
+                                class="link-light">here</a>.
+                        </p>
+                        {%endif%}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Delete modal-->
+    <div class="mt-3  mb-4">
+
+
+        <div class="modal fade" id="delete_modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modal">Are you sure?</h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fs-5">You are about to <b class="fw-bold">DELETE</b>
+                            {{u.login.title()}}'s profile.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="/delete/users" method="post"><input type="hidden" value="{{u.id}}" name="id">
+                            <button type="submit" class="btn btn-block btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    <hr class="my-5">
+    <div class="card shadow pb-5">
+
+
+        <p class="fs-1 text-center card-header">Register New User</p>
+
+
+
+        <form class="py-5" method="POST" action="/users">
+            {{ form.csrf_token }}
+
+            <div class="form-floating m-4 w-75 mx-auto ">
+                {{ form.login(class_='form-control text-white bg-dark', placeholder='Login', id='login') }}
+                <label for="login" class="text-light">Username</label>
+            </div>
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.email(class_='form-control text-white bg-dark', placeholder='E-mail', id='email') }}
+                <label for="email" class="text-light">E-mail</label>
+            </div>
+
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.password(class_='form-control text-white bg-dark', placeholder='Password', id='password',
+                pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$') }}
+                <label for="password" class="text-light">Password</label>
+            </div>
+            <div class="form-floating m-4 w-75 mx-auto mb-3">
+                {{ form.repeat_password(class_='form-control text-white bg-dark', placeholder='Repeat Password',
+                id='repeat_password') }}
+                <label for="repeat_password" class="text-light">Repeat Password</label>
+            </div>
+            <ul class="w-50 mx-auto card py-3 m-4">
+                <div class="mx-auto fs-6 ">
+                    <p class="">Passwords must contain:</p>
+
+                    <li>At least one upper case and one lower case letter;</li>
+                    <li>At least one number;</li>
+                    <li>A minimum eight characters.</li>
+                </div>
+            </ul>
+            <div class="row mt-5">
+                <div class="d-flex align-content-center ">
+                    <button type="submit" class="btn btn-primary w-50 fs-5 py-3 mx-auto m-3">Register</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

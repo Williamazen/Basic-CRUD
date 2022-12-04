@@ -28,7 +28,7 @@
 
             <div class="form-floating m-4 w-75 mx-auto mb-3">
                 {{ form.password(class_='form-control text-white bg-dark', placeholder='Password', id='password',
-                pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$') }}
+                pattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$') }}
                 <label for="password" class="text-light">Password</label>
             </div>
             <div class="form-floating m-4 w-75 mx-auto mb-3">
@@ -42,7 +42,6 @@
 
                     <li>At least one upper case and one lower case letter;</li>
                     <li>At least one number;</li>
-                    <li>At least one special character (#?!@$%^&*-);</li>
                     <li>A minimum eight characters.</li>
                 </div>
             </ul>

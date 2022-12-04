@@ -58,49 +58,48 @@
 
 
     {%if not data%}
-    <p class="fs-1 text-center">No items found</p>
+    <p class="fs-3 text-center">No Categories found. You can add categories <a href="{{url_for('category')}}"
+            class="link-light">here</a>.
+    </p>
     {%else%}
     <form class="mt-3 submit-form d-flex flex-row-reverse mb-4" action="/download" method="get">
         <button type="submit" class="btn btn-block btn-primary py-3" style="min-width: 200px ;">Export</button>
     </form>
     {%endif%}
 
-    {%for category in data%}
+    {%for k in data%}
     <div class="py-5" style="min-height:500px ;">
-        <p class="fs-1">{{category[0].name}}</p>
+        <p class="fs-1">{{k.name}}</p>
 
-        {%for item in category[1] %}
+        {%for item in data[k] %}
 
 
-        <div class="card mt-5 shadow" style="min-height: 100px;">
-
-            <div class="row g-2 align-items-center my-auto">
-
-                <div class="col-6">
-                    <p class="ms-5 fs-3" name="name">{{item.name}}</p>
+        <div class="card shadow">
+            <div class="card-header row  mx-1">
+                <div class="col">
+                    <p class="text-truncate fs-4 w-50">{{item.name.title()}}</p>
                 </div>
-
-                <div class="col-2">
-                    <p class="fs-4">x{{item.amount}}</p>
-                </div>
-
-                <div class="col-3">
-                    <form action="/delete/edit" method="post">
-                        <input type="hidden" value="{{item.id}}" name="id">
-                        <div class="mt-3 submit-form mb-4">
-                            <button type="submit" class="btn btn-block btn-danger py-3 w-100">Remove</button>
-                        </div>
-                    </form>
+                <div class="col-4">
+                    <p class="text-truncate fs-4 w-50">x{{item.amount}}</p>
                 </div>
 
             </div>
+            <form class="card-body py-4" action="/delete/edit" method="post">
+                <input type="hidden" value="{{item.id}}" name="id">
+                <div class="row text-center ">
+                    <div class="col">
+                        <button type="submit" class="btn btn-block btn-danger py-3 w-50">Remove</button>
+                    </div>
+                </div>
+            </form>
 
         </div>
         {%endfor%}
-        {%if not category[1][0]%}
+        {%if not data[k]%}
         <p class="fs-5 ms-3">No items found.</p>
         {%endif%}
     </div>
+
     {%endfor%}
 
 

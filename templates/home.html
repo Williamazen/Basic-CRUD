@@ -10,23 +10,30 @@
 
             </p>
         </div>
-        <div class="row p-3">
-            <div class="col-4">
+        <div class="row p-3 d-flex justify-content-center">
+            <div class="col-6">
                 <a href="{{url_for('login')}}"><button class="btn btn-block btn-dark py-3 w-100 fs-5">Login</button>
                 </a>
 
             </div>
 
-            <div class="col-4">
+            <div class="col-6">
                 <a href="{{url_for('register')}}"><button
                         class="btn btn-block btn-primary py-3 w-100 fs-5">Register</button>
                 </a>
             </div>
 
-            <div class="col-4">
-                <a href="{{url_for('guest_login')}}"><button class="btn btn-block btn-secondary py-3 w-100 fs-5">Enter
-                        as
-                        Guest</button>
+
+        </div>
+        <div class="row d-flex justify-content-center p-4 align-items-center">
+            <hr class="col-4">
+            <p class="fs-5 d-flex justify-content-center fst-italic fw-light col-2"> or </p>
+            <hr class="col-4">
+        </div>
+        <div class="row d-flex justify-content-center p-1 pb-5">
+            <div class="col-6">
+                <a href="{{url_for('guest_login')}}"><button class="btn btn-block btn-secondary py-3 w-100 fs-5 ">Login
+                        as Guest</button>
                 </a>
 
             </div>
