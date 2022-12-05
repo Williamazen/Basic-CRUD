@@ -229,7 +229,7 @@ def edit():
             return render_template('edit.html', form=form, data=data)
         except Exception as e:
             abort(404)
-        return redirect('/edit')
+        return render_template('edit.html', form=form, data=data)
 
     return render_template('edit.html', form=form, data=data)
 
@@ -372,7 +372,7 @@ def delete(page):
         logs = Log.query.filter_by(item_id=id)
         logs.delete()
 
-        item = Item.query.filter_by(id=id).first()
+        item = Item.query.filter_by(id=id)
         item.delete()
 
     elif page == 'category':

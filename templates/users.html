@@ -54,7 +54,7 @@
 
 
                         <input type="checkbox" name="check" class="btn-check" id="btncheck{{i.id}}" autocomplete="off"
-                            value="{{i.id}}">
+                            value="{{i.id}}" {%if (i.id,) in users[u]%}checked{%endif%}>
 
                         <label class="btn btn-outline-primary me-1 mb-1 shadow-none text-truncate" style="width:8rem;"
                             for="btncheck{{i.id}}">
